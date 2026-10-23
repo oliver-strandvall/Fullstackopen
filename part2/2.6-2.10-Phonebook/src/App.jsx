@@ -1,41 +1,26 @@
 import { useState } from 'react'
+import Filter from './Components/Filter';
+import PersonForm from './Components/PersonForm';
+import Persons from './Components/Persons';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
-  const [newName, setNewName] = useState('')
+    const [persons, setPersons] = useState([
+      { name: 'Arto Hellas', number: '040-123456', id: 1 },
+      { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+      { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+      { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+    ])
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    persons.push(newName);
-    setNewName("");
-  }
-
-  function handleNameChange(e) {
-    console.log(e.target.value);
-    setNewName(e.target.value);
-  }
-
-  return (
-    <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          Name: <input value={newName} onChange={handleNameChange} name="name" id="name" />
-        </div>
-        <div>
-          <button type="submit">Add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {persons.map(person =>
-          <li key={person.id} person={person} />
-        )}
-      </ul>
-    </div>
-  )
+    return (
+      <div>
+        <h2>Phonebook</h2>
+          <Filter persons={persons} setPersons={setPersons} />
+        <h2>Add New</h2>
+          <PersonForm persons={persons} setPersons={setPersons} />
+        <h2>Numbers</h2>
+          <Persons persons={persons} setPersons={setPersons} />
+      </div>
+    )
 }
 
 export default App
