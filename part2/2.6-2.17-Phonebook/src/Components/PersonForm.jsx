@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 const PersonForm = ({ persons, setPersons }) => {
 const [newName, setNewName] = useState('');
@@ -9,15 +10,21 @@ function handleSubmit(e) {
     if(persons.some(person => person.name === newName)) {
         alert(`Name: ${newName} Already Exists`);
     } else {
-        setPersons(persons.concat({
-            id: persons.length + 1,
+        console.log(newName, newNumber);
+        const personObject = {
             name: newName,
             number: newNumber,
-        }))
+            id: persons.length + 1
+        }
+
+        axios
+            .post('http://localhost:3001/persons', personObject)
+            .then(response => {
+                console.log(response)
+            })
     }
     setNewName('');
     setNewNumber('');
-    console.log(persons);
     }
 
     function handleNameChange(e) {
