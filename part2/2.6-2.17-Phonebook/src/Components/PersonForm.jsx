@@ -18,11 +18,14 @@ function handleSubmit(e) {
         }
 
         axios
-            .post('http://localhost:3001/persons', personObject)
-            .then(response => {
-                console.log(response)
-            })
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+            setPersons(current => current.concat(response.data))
+            setNewName('')
+            setNewNumber('')
+        })
     }
+    
     setNewName('');
     setNewNumber('');
     }

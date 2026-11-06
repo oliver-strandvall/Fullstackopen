@@ -1,12 +1,21 @@
-const Persons = ({ persons }) => {
+const Persons = ({ persons, onDelete }) => {
     return(
-        <div>
-            <ul>
-            {persons.map(person =>
-                <li key={person.id}>{`${person.name} - ${person.number}`}</li>
-            )}
-            </ul>
-        </div>
+    <ul>
+        {persons.map(person => (
+        <li key={person.id}>
+            {person.name} - {person.number}{' '}
+            <button
+            onClick={() => {
+                if (window.confirm(`Delete ${person.name}?`)) {
+                onDelete(person.id)
+                }
+            }}
+            >
+            Delete
+            </button>
+        </li>
+        ))}
+    </ul>
     )
 }
 

@@ -18,6 +18,14 @@ const App = () => {
 
   useEffect(hook, [])
 
+  const deletePerson = id => {
+    axios
+      .delete(`http://localhost:3001/persons/${id}`)
+      .then(() => {
+        setPersons(current => current.filter(person => person.id !== id))
+      })
+  }
+
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(searchName.toLowerCase())
   )
@@ -29,7 +37,7 @@ const App = () => {
       <h2>Add New</h2>
         <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-        <Persons persons={filteredPersons} />
+        <Persons persons={filteredPersons} onDelete={deletePerson} />
     </div>
   )
 }
